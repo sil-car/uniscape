@@ -54,8 +54,8 @@ parts:
   uniscape:
     plugin: python
     source: .
-    python-requirements:
-      - pyproject.toml
+    # python-requirements:
+    #   - pyproject.toml
     override-pull: |
       craftctl default
       snap_ver=$(grep 'version =' $CRAFT_PART_SRC/pyproject.toml | sed -r 's/^version = "(.*)"/\1/')
