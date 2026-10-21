@@ -47,7 +47,7 @@ apps:
     command: bin/uniscape
     environment:
       # https://forum.snapcraft.io/t/modulenotfounderror-no-module-named-tkinter/28707/4
-      PYTHONPATH: $PYTHONPATH:$SNAP/usr/lib/python3.10:$SNAP/usr/lib/python3.10/lib-dynload
+      PYTHONPATH: $PYTHONPATH:$SNAP/usr/lib/python3.14:$SNAP/usr/lib/python3.14/lib-dynload
     extensions: [gnome]
 
 parts:
