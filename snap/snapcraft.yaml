@@ -45,9 +45,9 @@ apps:
   uniscape:
     # When a separate gui command was used the icon wasn't properly shown in panel.
     command: bin/uniscape
-    # environment:
-    #   # https://forum.snapcraft.io/t/modulenotfounderror-no-module-named-tkinter/28707/4
-    #   PYTHONPATH: $PYTHONPATH:$SNAP/usr/lib/python3.10:$SNAP/usr/lib/python3.10/lib-dynload
+    environment:
+      # https://forum.snapcraft.io/t/modulenotfounderror-no-module-named-tkinter/28707/4
+      PYTHONPATH: $PYTHONPATH:$SNAP/usr/lib/python3.10:$SNAP/usr/lib/python3.10/lib-dynload
     extensions: [gnome]
 
 parts:
