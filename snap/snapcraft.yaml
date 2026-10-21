@@ -29,7 +29,6 @@ description: |
                          \u0068\u006f\u0302\u0074\u0065\u006c'.
 
 adopt-info: uniscape # for version and grade
-type: app
 # grade: stable  # set with adopt-info
 confinement: strict
 base: core26
@@ -37,35 +36,24 @@ platforms:
   amd64:
   arm64:
 
-layout:
-  /usr/share/tcltk:
-    symlink: $SNAP/usr/share/tcltk
-
 apps:
   uniscape:
     # When a separate gui command was used the icon wasn't properly shown in panel.
     command: bin/uniscape
+    plugs: [x11, desktop]
     environment:
       # https://forum.snapcraft.io/t/modulenotfounderror-no-module-named-tkinter/28707/4
-      PYTHONPATH: $PYTHONPATH:$SNAP/usr/lib/python3.14:$SNAP/usr/lib/python3.14/lib-dynload
-    extensions: [gnome]
+      PYTHONPATH: $SNAP/usr/lib/python3.14:$SNAP/usr/lib/python3.14/lib-dynload
+      TCL_LIBRARY: $SNAP/usr/share/tcltk/tcl8.6
+      TK_LIBRARY: $SNAP/usr/share/tcltk/tk8.6
 
 parts:
-  python-runtime:
-    plugin: nil
-    stage-packages:
-      - libpython3.14-minimal
-      - libpython3.14-stdlib
-      - python3.14-minimal
-      - python3-tk
-      - tcl8.6
-
   uniscape:
-    after: [python-runtime]
     plugin: python
     source: .
+    stage-packages:
+      - python3-tk
     override-pull: |
       craftctl default
-      snap_ver=$(grep 'version =' $CRAFT_PART_SRC/pyproject.toml | sed -r 's/^version = "(.*)"/\1/')
-      craftctl set version="${snap_ver}"
+      craftctl set version="$(grep -Po '(?<=version = ")[0-9.]+' pyproject.toml)"
       craftctl set grade="stable"
