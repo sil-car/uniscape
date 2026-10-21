@@ -1,20 +1,11 @@
-# $ python3 -c 'import uniscape.app; uniscape.app.main()' [ARGS]
-
 import sys
 from pathlib import Path
-
-from tkinter import font
-from tkinter import Tk
-from tkinter import Text
-
-from tkinter.ttk import Button
-from tkinter.ttk import Frame
-from tkinter.ttk import Label
-from tkinter.ttk import Scrollbar
-from tkinter.ttk import Style
+from tkinter import Text, Tk
+from tkinter.ttk import Button, Frame, Scrollbar, Style
 
 from . import cli
 from .esc import wordlist_to_unicode
+
 
 class UniScapeWindow(Frame):
     def __init__(self, root, **kwargs):
@@ -26,7 +17,7 @@ class UniScapeWindow(Frame):
 
         # Make each mainframe widget expand proportionally to initial size.
         gw1 = 8 # proportional width of 1st grid block
-        gw2 = 1 
+        gw2 = 1
         gw3 = 1
         gh1 = 1 # proportional height of 1st grid block
         gh2 = 5
