@@ -46,12 +46,14 @@ apps:
       PYTHONPATH: $SNAP/usr/lib/python3.14:$SNAP/usr/lib/python3.14/lib-dynload
       TCL_LIBRARY: $SNAP/usr/share/tcltk/tcl8.6
       TK_LIBRARY: $SNAP/usr/share/tcltk/tk8.6
+      XLOCALEDIR: $SNAP/usr/share/X11/locale
 
 parts:
   uniscape:
     plugin: python
     source: .
     stage-packages:
+      - libx11-data
       - python3-tk
     override-pull: |
       craftctl default
