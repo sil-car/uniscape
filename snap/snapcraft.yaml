@@ -51,26 +51,21 @@ apps:
     extensions: [gnome]
 
 parts:
+  python-runtime:
+    plugin: nil
+    stage-packages:
+      - libpython3.14-minimal
+      - libpython3.14-stdlib
+      - python3.14-minimal
+      - python3-tk
+      - tcl8.6
+
   uniscape:
+    after: [python-runtime]
     plugin: python
     source: .
-    # python-requirements:
-    #   - pyproject.toml
     override-pull: |
       craftctl default
       snap_ver=$(grep 'version =' $CRAFT_PART_SRC/pyproject.toml | sed -r 's/^version = "(.*)"/\1/')
       craftctl set version="${snap_ver}"
       craftctl set grade="stable"
-    # build-packages:
-    #   - python3-pip
-    # override-build: |
-    #   # Install dephell to convert pyproject.toml to setup.py, which is req'd. by snapcraftctl.
-    #   # https://forum.snapcraft.io/t/building-a-core20-python-snap-using-pyproject-toml/22028/2
-    #   pip3 install --user dephell[full]
-    #   $HOME/.local/bin/dephell deps convert --from-path=pyproject.toml --from-format=poetry --to-path=setup.py --to-format=setuppy
-    #   craftctl default
-    stage-packages:
-      - python3-minimal
-      # - python3-venv
-      - python3-tk
-      - tcl8.6
